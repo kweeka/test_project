@@ -319,11 +319,249 @@ var student10 = new Student('Иван', 'Иванов', 2017);
 
 let arra20 =[[1, 2, 3], [4, 5, 6], [7,8,9] ];
 
-console.log(arra20[1][0]);
+arra20[1][0];
+
+let salaries = {
+    "John": 100,
+    "Pete": 300,
+    "Mary": 250
+};
+
+function sumSalaries(arr) {
+    let sum_arr = Object.values(arr);
+    let sum_all = 0;
+    for (let sal of sum_arr){
+        sum_all += sal;
+    }
+    return sum_all;
+}
+sumSalaries(salaries);
+
+let user40 = {
+    name: 'John',
+    age: 30
+};
+
+function count(obj) {
+    return Object.keys(obj).length;
+}
+count(user40);
+
+let data_20_02_2012 = new Date(2012, 1, 20);
+let data_21_02_2012 = new Date(2012, 1, 21);
+let data_22_02_2012 = new Date(2012, 1, 22);
+let data_23_02_2012 = new Date(2012, 1, 23);
+let data_24_02_2012 = new Date(2012, 1, 24);
+let data_25_02_2012 = new Date(2012, 1, 25);
+let data_26_02_2012 = new Date(2012, 1, 26);
+
+function getWeekDay(date) {
+    let arrWeekDay = ["ВС", "ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ"];
+    return arrWeekDay[date.getDay()];
+}
+getWeekDay(data_21_02_2012);
+
+function getLocalDay(date) {
+    if (date.getDay() == 0){
+        return 7;
+    } else {
+        return date.getDay();
+    }
+}
+getLocalDay(data_26_02_2012);
+
+function getDateAgo(date, days) {
+    let date_1 = new Date(date.getTime() - days * 24 * 3600 * 1000);
+    return date_1;
+}
+getDateAgo(data_21_02_2012, 1);
+
+function getLastDayOfMonth(year, month) {
+    let data = new Date(year, month);
+    return new Date(data.getTime() - 1 * 24 * 3600 * 1000);
+}
+getLastDayOfMonth(2012, 2);
+
+function getSecondsToday() {
+    let data = new Date();
+    return data.getHours() * 3600 + data.getMinutes() * 60 + data.getSeconds();
+}
+getSecondsToday();
+
+function getSecondsToTomorrow() {
+    let data = new Date();
+    return 24 * 3600 - (data.getHours() * 3600 + data.getMinutes() * 60 + data.getSeconds());
+}
+getSecondsToTomorrow();
+
+
+function formatDate(date) {
+    let current_date = new Date;
+    if(current_date.getTime() - 1000 < date.getTime()){
+    } else if (current_date.getTime() - 60 * 1000 < date.getTime()){
+        return (current_date.getTime() - date.getTime())/1000;
+    } else if (current_date.getTime() - 3600 * 1000 < date.getTime()){
+        return (current_date.getTime() - date.getTime())/60000;
+    } else {
+        return date.toLocaleString().slice(0, -3);
+    }
+
+}
+formatDate(new Date(new Date - 1096400 * 1000));
+
+function sumTo(n){
+    let result = 0;
+    for (let i = 0; i <= n; i++){
+        result += i;
+    } return result;
+}
+
+function sumTo1(n) {
+    if (n == 1) {
+        return n;
+    } else {
+        return n + sumTo1(n - 1);
+    }
+}
+
+let list = {
+    value: 1,
+    next: {
+        value: 2,
+        next: {
+            value: 3,
+            next: {
+                value: 4,
+                next: null
+            }
+        }
+    }
+};
+
+function printList(obj) {
+    let tmp = obj;
+    while (tmp){
+        //console.log(tmp.value);
+        tmp = tmp.next;
+    }
+}
+
+printList(list);
+
+function printList1(obj) {
+    //console.log(obj.value);
+    if(obj.next){
+        printList1(obj.next);
+    }
+}
+
+printList1(list);
+
+function makeCounter() {
+    let count = 0;
+    return function() {
+        return count++;
+    };
+}
+
+let counter = makeCounter();
+let counter2 = makeCounter();
+
+function sum(a){
+    return function (b) {return b + a};
+}
+
+let arr100 = [1, 6, 2, 3, 4, 5, 6, 7];
+
+function inBetween (min, max){
+    return function (element) {
+        if (element >= min && element <= max) {
+            return true;
+        }
+        return false;
+    }
+}
+
+function inArray(arr) {
+    return function (element) {
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i] == element){
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+console.log(arr100.filter(inArray([1, 6, 2, 10])));
+
+let users1000 = [
+    { name: "John", age: 20, surname: "Johnson" },
+    { name: "Pete", age: 18, surname: "Peterson" },
+    { name: "Ann", age: 19, surname: "Hathaway" }
+];
+
+function byField(key_sort) {
+    return function (a, b) {
+        if (a[key_sort] > b[key_sort]) {
+            return 1;
+        }
+        if (a[key_sort] < b[key_sort]) {
+            return -1;
+        }        return 0;
+    }
+}
+
+console.log(users1000.sort(byField('name')));
+console.log(users1000.sort(byField('age')));
+
+function makeArmy() {
+    let shooters = [];
+    let i = 0;
+    while (i < 10) {
+        (function (val) {
+            var a = val;
+            let shooter = function () {
+                console.log(a);
+            };
+            shooters.push(shooter);
+            i++;
+        })(i);
+    }
+    return shooters;
+}
+
+let army = makeArmy();
+
+console.log(army);
+army[5]();
+army[7]();
+
+
+let timerId = setTimeout (function printNumbers(from, to){
+    if (from <= to){
+        //console.log(from);
+        timerId = setTimeout(printNumbers, 1000, ++from, to);
+    }
+}, 1000, 4, 9);
+
+
+function timeInterval(from, to) {
+    let iii = from;
+    let timerId1 = setInterval (function (){
+        if (iii = to){
+            clearInterval(timerId1);
+        }
+        console.log(iii);
+        iii++;
+    }, 1000);
+}
+
+timeInterval(4, 9);
 
 
 
-1
+
 
 
 
